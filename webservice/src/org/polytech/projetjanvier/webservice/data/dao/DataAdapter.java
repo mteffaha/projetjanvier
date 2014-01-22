@@ -1,7 +1,7 @@
 package org.polytech.projetjanvier.webservice.data.dao;
 
-import org.polytech.projetjanvier.webservice.data.dao.entities.Beacon;
-import org.polytech.projetjanvier.webservice.data.dao.entities.Sensor;
+import org.polytech.projetjanvier.webservice.data.dao.entities.SensorInfo;
+import org.polytech.projetjanvier.webservice.data.dao.entities.Station;
 import org.polytech.projetjanvier.webservice.data.dao.entities.Site;
 
 import java.util.List;
@@ -13,12 +13,12 @@ import java.util.List;
  */
 public interface DataAdapter {
     List<Site> selectSites();
-    List<Beacon> selectBeacons(int siteID);
-    List<Sensor> selectSensors(int beaconID);
+    List<Station> selectBeacons(int siteID);
+    List<SensorInfo> selectSensors(int beaconID);
 
     Site insertSite(String description);
-    Beacon insertBeacon(int siteID);
-    Sensor insertSensor(int beaconID,int type,float stateOfCharge,float temperature,float RSSI);
+    Station insertBeacon(int siteID);
+    SensorInfo insertSensor(int beaconID,int type,float stateOfCharge,float temperature,float RSSI);
 
     /*
             TODO add search capability and a more robust CRUD system

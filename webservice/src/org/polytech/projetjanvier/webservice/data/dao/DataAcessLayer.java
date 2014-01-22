@@ -1,7 +1,7 @@
 package org.polytech.projetjanvier.webservice.data.dao;
 
-import org.polytech.projetjanvier.webservice.data.dao.entities.Beacon;
-import org.polytech.projetjanvier.webservice.data.dao.entities.Sensor;
+import org.polytech.projetjanvier.webservice.data.dao.entities.SensorInfo;
+import org.polytech.projetjanvier.webservice.data.dao.entities.Station;
 import org.polytech.projetjanvier.webservice.data.dao.entities.Site;
 
 import java.util.List;
@@ -38,12 +38,12 @@ public class DataAcessLayer implements  DataAdapter{
     }
 
     @Override
-    public List<Beacon> selectBeacons(int siteID) {
+    public List<Station> selectBeacons(int siteID) {
         return null;
     }
 
     @Override
-    public List<Sensor> selectSensors(int beaconID) {
+    public List<SensorInfo> selectSensors(int beaconID) {
         return null;
     }
 
@@ -53,12 +53,12 @@ public class DataAcessLayer implements  DataAdapter{
     }
 
     @Override
-    public Beacon insertBeacon(int siteID) {
+    public Station insertBeacon(int siteID) {
         return null;
     }
 
     @Override
-    public Sensor insertSensor(int beaconID, int type, float stateOfCharge, float temperature, float RSSI) {
+    public SensorInfo insertSensor(int beaconID, int type, float stateOfCharge, float temperature, float RSSI) {
         return null;
     }
 }

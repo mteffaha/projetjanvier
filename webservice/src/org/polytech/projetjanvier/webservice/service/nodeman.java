@@ -1,6 +1,6 @@
 package org.polytech.projetjanvier.webservice.service;
-import org.polytech.projetjanvier.webservice.data.dao.entities.Beacon;
-import org.polytech.projetjanvier.webservice.data.dao.entities.Sensor;
+import org.polytech.projetjanvier.webservice.data.dao.entities.SensorInfo;
+import org.polytech.projetjanvier.webservice.data.dao.entities.Station;
 import org.polytech.projetjanvier.webservice.data.dao.entities.Site;
 
 import javax.jws.WebMethod;
@@ -41,8 +41,8 @@ public class nodeman {
      * @return list of available beacon in the given site
      */
   @WebMethod
-  public List<Beacon> getListBeasons(@WebParam(name ="siteID") int siteID){
-      return new ArrayList<Beacon>();
+  public List<Station> getListBeasons(@WebParam(name ="siteID") int siteID){
+      return new ArrayList<Station>();
   }
 
     /**
@@ -54,8 +54,8 @@ public class nodeman {
      * @return the latest instance of the sensor connected to beacon passed as parameter
      */
   @WebMethod
-  public List<Sensor> getListSensors(@WebParam(name ="beaconID")int beaconID){
-      return new ArrayList<Sensor>();
+  public List<SensorInfo> getListSensors(@WebParam(name ="beaconID")int beaconID){
+      return new ArrayList<SensorInfo>();
   }
 
     /**
@@ -77,8 +77,8 @@ public class nodeman {
      * @return the beacon created
      */
   @WebMethod
-  public Beacon addBeacon(@WebParam(name ="siteID") int siteID){
-      return new Beacon(0,0,"");
+  public Station addStation(@WebParam(name ="siteID") int siteID){
+      return new Station(0,0,"");
   }
 
     /**
@@ -86,19 +86,23 @@ public class nodeman {
      *
      * @param beaconID  the id of the beacon to which the sensors is connected
      * @param id the id of the beacon(which will also be used to determine to type of the beacon)
+     * @param type the type of sensor (solar, Wind Power etc ..)
+     * @param wakeUpPeriod Wake up period
      * @param stateOfCharge state of charge of the beacon (determine the amount of power the sensor has)
      * @param temperature temperature as detected by the sensor
      * @param RSSI Recieved Strength Signal Information
      * @return
      */
   @WebMethod
-  public Sensor updateSensor(@WebParam(name ="beaconID")int beaconID,
+  public SensorInfo updateSensor(@WebParam(name ="stationID")int stationID,
                               @WebParam(name ="sensorID")int id,
                               @WebParam(name ="type")int type,
+                              @WebParam(name ="wakeUpPeriod")int wakeUpPeriod,
                               @WebParam(name ="stateOfCharge")float stateOfCharge,
                               @WebParam(name ="temperature")float temperature,
-                              @WebParam(name ="RsSSI")float RSSI){
-      return new Sensor(beaconID, type, stateOfCharge, temperature, RSSI);
+                              @WebParam(name ="RSSI")float RSSI,
+                              @WebParam(name ="timestamp") double timestamp){
+      return new SensorInfo(stationID, type,wakeUpPeriod ,stateOfCharge, temperature, RSSI,0);
   }
 
   public static void main(String[] argv) {

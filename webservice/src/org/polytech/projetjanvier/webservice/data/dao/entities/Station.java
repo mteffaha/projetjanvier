@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlElement;
  * Created by teffaha on 1/20/14.
  *
  */
-public class Beacon {
+public class Station {
     @XmlElement
     public int id;
     @XmlElement
@@ -14,7 +14,7 @@ public class Beacon {
     @XmlElement
     public String description;
 
-    public Beacon(int id,int siteID,String description){
+    public Station(int id, int siteID, String description){
         this.id = id;
         this.siteID = siteID;
         this.description = description;
