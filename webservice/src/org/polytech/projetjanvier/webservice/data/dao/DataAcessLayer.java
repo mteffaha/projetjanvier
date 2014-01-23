@@ -53,12 +53,12 @@ public class DataAcessLayer implements  DataAdapter{
     }
 
     @Override
-    public Station insertBeacon(int siteID) {
+    public SensorInfo insertSensor(int stationID, int type,int wakeUpPeriod ,float stateOfCharge, float temperature, float RSSI,double timestamp) {
         return null;
     }
 
-    @Override
-    public SensorInfo insertSensor(int beaconID, int type, float stateOfCharge, float temperature, float RSSI) {
-        return null;
-    }
+	@Override
+	public Station insertBeacon(int siteID, String description) {
+		return null;
+	}
 }

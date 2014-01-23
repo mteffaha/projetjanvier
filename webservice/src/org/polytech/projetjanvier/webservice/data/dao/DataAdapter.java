@@ -17,8 +17,8 @@ public interface DataAdapter {
     List<SensorInfo> selectSensors(int beaconID);
 
     Site insertSite(String description);
-    Station insertBeacon(int siteID);
-    SensorInfo insertSensor(int beaconID,int type,float stateOfCharge,float temperature,float RSSI);
+    Station insertBeacon(int siteID, String description);
+    SensorInfo insertSensor(int stationID, int type,int wakeUpPeriod ,float stateOfCharge, float temperature, float RSSI,double timestamp);
 
     /*
             TODO add search capability and a more robust CRUD system
