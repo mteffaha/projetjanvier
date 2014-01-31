@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+        >
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_margin="0dp"
+            android:background="@null"
+            android:orientation="vertical">
+    <LinearLayout android:layout_width="fill_parent"
+                  android:layout_height="125dp"
+                  android:orientation="horizontal"
+                  android:background="@drawable/sitesbgimage"
+                  >
+        <ImageView android:layout_width="50dp"
+                   android:layout_height="50dp"
+                   android:src="@drawable/sites"
+                   android:layout_margin="20dp"/>
+
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical"
+                      android:layout_marginTop="20dp"
+                      android:paddingRight="10dp"
+                >
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/DarkRed"
+                    android:text="Site 0"
+                    android:textSize="32sp"
+
+                    android:id="@+id/siteid"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/Black"
+                    android:id="@+id/sitedescription"
+                    android:text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+        <ListView android:layout_width="fill_parent" android:layout_height="fill_parent" android:id="@+id/listStation"></ListView>
+    </LinearLayout>
+
+</LinearLayout>
