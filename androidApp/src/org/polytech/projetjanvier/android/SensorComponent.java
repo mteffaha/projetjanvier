@@ -11,12 +11,13 @@ import org.polytech.projetjanvier.android.entities.Sensor;
  */
 public class SensorComponent extends View implements SensorUpdate {
 
-    protected int strokeWidth = 25;
-    protected int startDegree =  -90;
+    protected int strokeWidth = 25; // Width of element drawn (the circular bars), also determines the repartition/spacing of element
+    protected int startDegree =  -90; // the start degree from which the circular bars will be drawn
 
-    private Typeface caviarDreams;
+    private Typeface caviarDreams; // the font used for writing information
 
 
+    // Inforamtion relative to the sensor
     private int id = 0;
     private int rssi = 20;
 

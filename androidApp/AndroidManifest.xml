@@ -11,6 +11,7 @@
             android:theme="@style/appTheme"
             >
         <activity android:name=".SensorActivity"></activity>
+        <activity android:name=".SensorDetail"></activity>
         <activity android:name="Sites"
                   android:label="@string/app_name">
             <intent-filter>
