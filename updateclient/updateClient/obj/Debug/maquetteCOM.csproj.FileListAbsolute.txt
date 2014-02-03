@@ -1,0 +1,13 @@
+C:\Users\achabert\Documents\4A\Projet janvier\maquette1Final\maquetteCOM\maquetteCOM\bin\Debug\maquetteCOM.exe.config
+C:\Users\achabert\Documents\4A\Projet janvier\maquette1Final\maquetteCOM\maquetteCOM\bin\Debug\maquetteCOM.exe
+C:\Users\achabert\Documents\4A\Projet janvier\maquette1Final\maquetteCOM\maquetteCOM\bin\Debug\maquetteCOM.pdb
+C:\Users\achabert\Documents\4A\Projet janvier\maquette1Final\maquetteCOM\maquetteCOM\obj\Debug\maquetteCOM.MainForm.resources
+C:\Users\achabert\Documents\4A\Projet janvier\maquette1Final\maquetteCOM\maquetteCOM\obj\Debug\maquetteCOM.Properties.Resources.resources
+C:\Users\achabert\Documents\4A\Projet janvier\maquette1Final\maquetteCOM\maquetteCOM\obj\Debug\maquetteCOM.UserControl1.resources
+C:\Users\achabert\Documents\4A\Projet janvier\maquette1Final\maquetteCOM\maquetteCOM\obj\Debug\maquetteCOM.csproj.GenerateResource.Cache
+C:\Users\achabert\Documents\4A\Projet janvier\maquette1Final\maquetteCOM\maquetteCOM\obj\Debug\maquetteCOM.exe
+C:\Users\achabert\Documents\4A\Projet janvier\maquette1Final\maquetteCOM\maquetteCOM\obj\Debug\maquetteCOM.pdb
+C:\Users\achabert\Documents\4A\Projet janvier\maquette1Final\maquetteCOM\maquetteCOM\obj\Debug\maquetteCOM.csprojResolveAssemblyReference.cache
+C:\Users\achabert\Documents\4A\Projet janvier\git\private\updateclient\maquetteCOM\bin\Debug\maquetteCOM.exe.config
+C:\Users\achabert\Documents\4A\Projet janvier\git\private\updateclient\maquetteCOM\obj\Debug\maquetteCOM.exe
+C:\Users\achabert\Documents\4A\Projet janvier\git\private\updateclient\maquetteCOM\obj\Debug\maquetteCOM.pdb
