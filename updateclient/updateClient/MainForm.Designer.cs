@@ -1,5 +1,5 @@
 ﻿using updateClient;
-using maquetteCOM;
+using updateClient;
 namespace updateClient
 {
     partial class MainForm

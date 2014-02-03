@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using updateClient;
 
-namespace maquetteCOM
+namespace updateClient
 {
     static class Program
     {
