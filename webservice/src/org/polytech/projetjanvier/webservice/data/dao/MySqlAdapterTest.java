@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 import org.junit.*;
+import org.polytech.projetjanvier.webservice.data.dao.entities.SensorInfo;
 import org.polytech.projetjanvier.webservice.data.dao.entities.Site;
 import org.polytech.projetjanvier.webservice.data.dao.entities.Station;
 
@@ -14,7 +15,7 @@ public class MySqlAdapterTest {
         
         @BeforeClass
         public static void connect() {
-                adapter.openConnection("webservice/test.db");
+                adapter.openConnection("private/webservice/test.db");
         }
         
         @Before
@@ -43,6 +44,8 @@ public class MySqlAdapterTest {
                 assertTrue(p.description.equals("Paris") || p.id!=2);
                 Station st = adapter.insertBeacon(1, "Station de Nice");
                 assertTrue(st.description.equals("Station de Nice"));
+                SensorInfo sf = adapter.insertSensor(1, 1, 5, 0.65f, 34.0f, 0.3f, 123.4);
+                assertTrue(sf.temperature==34.0f);
         }
 
 }
