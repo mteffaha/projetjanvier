@@ -126,4 +126,9 @@ tr:nth-child(even) td { background: #F1F1F1; }
 tr:nth-child(odd) td { background: #FEFEFE; }  
 tr td:hover { background: #666; color: #FFF; } 
 
-
+p{
+	
+	margin-left: 10%;
+	margin-right: 10%;
+	 text-align: justify;
+}
