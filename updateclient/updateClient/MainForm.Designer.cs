@@ -1,5 +1,4 @@
 ﻿using updateClient;
-using updateClient;
 namespace updateClient
 {
     partial class MainForm
