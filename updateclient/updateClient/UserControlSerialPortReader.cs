@@ -7,65 +7,87 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net;
+using System.Web;
+using System.IO;
 
 namespace updateClient
 {
     public partial class UserControlSerialPortReader : UserControl
     {
+        //Constant declaration
+        int FRAME_LENGTH = 5, BAUD_RATE = 115200, DATA_BITS = 8 ;
 
-        List<int> bufferSerialPort = new List<int>();
-        
-        solarFrame curSolarFrame = new solarFrame();
-        thermalFrame curThermalFrame = new thermalFrame();
-
+        //Variables declaration
+        List<int> bufferSerialPorts = new List<int>();
+        Frame currentFrameInfo = new Frame();
         delegate void SetTextCallback(string text);
-
+        int frameCounter = 0; // total number of frame received, used in combination with frameExceptionCounter
+        int frameExceptionCounter = 0; // Is used to count the number of corrupt incoming frame
+        int solarFrameCounter = 0;
+        int windFrameCounter = 0;
+        /*
+         * User Control gathering all the tools used to connect the application to the serial port
+         */
         public UserControlSerialPortReader()
         {
             InitializeComponent();
 
             string[] ports = System.IO.Ports.SerialPort.GetPortNames();
 
-            comboBox_COM_ports.BeginUpdate();
+            /*
+             * Adding the working COM ports to the proper comboBox
+             */
+            comboBoxCOMPorts.BeginUpdate();
             for (int i = 0; i < ports.Length; i++)
             {
-                comboBox_COM_ports.Items.Add(ports[i]);
+                comboBoxCOMPorts.Items.Add(ports[i]);
 
             }
             if (ports.Length == 0)
             {
-                comboBox_COM_ports.Items.Add("Vide");
-                comboBox_COM_ports.SelectedItem = "Vide";
+                comboBoxCOMPorts.Items.Add("Vide");
+                comboBoxCOMPorts.SelectedItem = "Vide";
             }
             else
             {
-                comboBox_COM_ports.SelectedItem = ports[0];
+                comboBoxCOMPorts.SelectedItem = ports[0];
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            beginReception();
+            try
+            {
+                beginReception();
+            }
+            catch(BadParameterException bpe)
+            {
+                button_start.Enabled = true;
+                labelError.Text = bpe.getErrorMessage();
+            }
         }
 
+        /*
+         * Function called to initialize the COM port data access
+         */
         private void beginReception()
         {
             button_start.Enabled = false;
 
+            // Configuration du port série
+            serialPort1.BaudRate = BAUD_RATE;
+            serialPort1.DataBits = DATA_BITS;
             //Récupération des données de connexion série
-            String portName = comboBox_COM_ports.SelectedItem.ToString();
-            int baudRate = int.Parse(textBox_baudRate.Text);
-
-            //Affichage de débogage
-
-            //Affichage des données de l'interface
-            textBox_info_debug_interface.Text = "Affichage des données de l'interface : ";
-            textBox_info_debug_interface.Text += " \r\nPort COM du menu : ";
-            textBox_info_debug_interface.Text += portName;
-
-            textBox_info_debug_interface.Text += " \r\nVitesse du lien du menu : ";
-            textBox_info_debug_interface.Text += baudRate;
-
+            if (comboBoxCOMPorts.SelectedItem == null)
+            {
+               throw new BadParameterException("No port name");
+            }
+            String portName = comboBoxCOMPorts.SelectedItem.ToString();
+            if(portName == "Vide")
+            {
+                throw new BadParameterException("Bad port name");
+            }
             //Initialisation de la connexion
             if (serialPort1.IsOpen)
             {
@@ -73,39 +95,32 @@ namespace updateClient
             }
             try
             {
-                serialPort1.PortName = portName;
-                serialPort1.BaudRate = baudRate;
-                serialPort1.Open();
+                serialPortInit(portName, BAUD_RATE);
             }
-            catch
+            catch(Exception e)
             {
-                label_erreur_connexion.Text += " \r\nERREUR A L'OUVERTURE";
+                labelError.Text += " \r\nERREUR A L'OUVERTURE";
+                labelError.BackColor = Color.OrangeRed;
             }
-
-
-            //Affichage des caractéristiques du lien COM
-            textBox_info_debug_comPORT.Text = "Affichage des caractéristiques du lien COM : ";
-
-            textBox_info_debug_comPORT.Text += " \r\nPort COM de l'objet serialReader : ";
-            textBox_info_debug_comPORT.Text += serialPort1.PortName;
-
-            textBox_info_debug_comPORT.Text += " \r\nVitesse du lien de l'objet portCOM : ";
-            textBox_info_debug_comPORT.Text += serialPort1.BaudRate.ToString();
-
-            textBox_info_debug_comPORT.Text += " \r\nParité du menu de l'objet portCOM : ";
-            textBox_info_debug_comPORT.Text += serialPort1.Parity.ToString();
-
-            textBox_info_debug_comPORT.Text += " \r\nNombre de bits d'arrêt du menu de l'objet portCOM : ";
-            textBox_info_debug_comPORT.Text += serialPort1.StopBits.ToString();
-
+            
             if (button_stop.Enabled == false)
             {
                 button_stop.Enabled = true;
             }
         }
         
+        /*
+         * Function that fills the serialPort parameters and open it
+         */
+        private void serialPortInit(string portName, int baudRate)
+        {
+            serialPort1.PortName = portName;
+            serialPort1.Open();
+        }
 
-        //Fonction lancée à la réception de données via le port COM
+        /*
+         * Event function called when the serialPortReader receives data
+         */
         private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
             receiveData();
@@ -113,92 +128,163 @@ namespace updateClient
 
         private void receiveData()
         {
-            bufferSerialPort.Clear();
+            bufferSerialPorts.Clear();
             
             int count = serialPort1.BytesToRead;
             for (int i = 0; i < count; i++)
             {
                 //Bytes are returned in a "int" type
                 int temp = serialPort1.ReadByte();
-                bufferSerialPort.Add(temp);
+                bufferSerialPorts.Add(temp);
 
             }
             serialPort1.DiscardInBuffer();
 
-            if (bufferSerialPort.Count > 0)
+            if (bufferSerialPorts.Count > 0)
             {
                 //SetText(InputData.Substring(0, InputData.Length - 1));
-                SetText("");
+                try
+                {
+                    
+                    processData("");
+                }
+                catch(CorruptFrameException cfe)
+                {
+                    frameExceptionCounter++;
+                    labelCorruptFrameNumber.Text = frameExceptionCounter.ToString();
+
+                    if(frameExceptionCounter % 5 == 0)// we fit up to five frame exception info
+                    {
+
+                        textBoxDebugInfo.Text = cfe.getErrorMessage();               
+                    }
+                    else
+                    {
+                        textBoxDebugInfo.Text += cfe.getErrorMessage(); 
+                    }
+                    textBoxDebugInfo.Text += "\r\n";
+                }
             }
         }
 
-        private void SetText(string text)
+        private void processData(string text)// throw CorruptFrameException
         {
+            int count = 0;
             //InvokeRequired required compares the thread ID of the
             //calling thread to the thread ID of the creating thread.
             // If these threads are different, it returns true.
-            int count = 0;
-            if (this.textBox_données_solaires.InvokeRequired)
+            if (this.textBoxSolarData.InvokeRequired)
             {
-                SetTextCallback d = new SetTextCallback(SetText);
+                SetTextCallback d = new SetTextCallback(processData);
                 this.Invoke(d, new object[] { text });
             }
-            else
+            else//process incoming data
             {
-                //process incoming data
-                textBox_données_solaires.Text = "";
-                byte[] arr_bytes = new byte[bufferSerialPort.Count];
-                for (int i = 0; i < bufferSerialPort.Count; i++)
+                frameCounter++;
+                labelTotalFrameNumber.Text = frameCounter.ToString();
+
+                textBoxSolarData.Text = "";
+                byte[] arr_bytes = new byte[bufferSerialPorts.Count];
+                for (int i = 0; i < bufferSerialPorts.Count; i++)
                 {
                     
-                    arr_bytes[i] = Convert.ToByte(bufferSerialPort[i]);
+                    arr_bytes[i] = Convert.ToByte(bufferSerialPorts[i]);
 
-                    if (bufferSerialPort[i] == 10) //the id of '*' wich means end of frame
+                    if (bufferSerialPorts[i] == 10) //the id of '*' wich means end of frame
                     {
-                        //frame processing algorithm
-                        count = i + 1;//count the 
+                        //frame processing algorithm begins here
+                        count = i + 1;                        
                         string temp = new System.Text.ASCIIEncoding().GetString(arr_bytes, 0, i + 1);
 
-                        if (temp.Length > 5) // correct frame format
+                        if (temp.Length > FRAME_LENGTH) // correct frame format
                         {
-                            string[] temp2 = temp.Split(',');
-                            if (Convert.ToInt32(temp2[0]) == 3)//solar node type
-                            {
-                                curSolarFrame.ID = Convert.ToInt32(temp2[0]);
-                                curSolarFrame.SoC = Convert.ToInt32(temp2[1]);
+                            DateTime dateTime = DateTime.Now;
+                            String dateString = dateTime.ToShortTimeString();
 
-                                if (curSolarFrame.SoC > 100)
-                                {
-                                    textBox_données_solaires.Text += "Error : state of charge > 100";
-                                    curSolarFrame.SoC = 100;
-                                }
-                                if (curSolarFrame.SoC < 0)
-                                {
-                                    textBox_données_solaires.Text += "Error : state of charge > 100";
-                                    curSolarFrame.SoC = 0;
-                                }
-                                curSolarFrame.Twu = Convert.ToInt32(temp2[2]) / 10;
-                                curSolarFrame.Temp = Convert.ToInt32(((Convert.ToDouble(temp2[3]) * 2500 / 4095) - 986) / 3.55);
-                                //
-                                curSolarFrame.RSSI = Convert.ToInt32(temp2[4].Remove(temp2[4].Length - 1, 1)) - 53 - 45;
-                                textBox_données_solaires.Text += temp + Environment.NewLine;
-                            }
-                            else if (Convert.ToInt32(temp2[0]) == 2)//wind node type
+                            string[] temp2 = temp.Split(','); // each field is separated by a comma (Ox46)
+                            if(temp2.Length != 5)
                             {
-                                curThermalFrame.ID = Convert.ToInt32(temp2[0]);
-                                curThermalFrame.SoC = Convert.ToInt32(temp2[1]);
-                                if (curThermalFrame.SoC > 100)
-                                    curThermalFrame.SoC = 100;
-                                if (curThermalFrame.SoC < 0)
-                                    curThermalFrame.SoC = 0;
-                                curThermalFrame.Twu = Convert.ToInt32(temp2[2]) / 10;
-                                curThermalFrame.Temp = Convert.ToInt32(((Convert.ToDouble(temp2[3]) * 2500 / 4095) - 986) / 3.55);
-                                curThermalFrame.RSSI = Convert.ToInt32(temp2[4].Remove(temp2[4].Length - 1, 1)) - 53 - 45;
-                                textBox_données_éolien.Text += temp + Environment.NewLine;
+                                throw new CorruptFrameException("Incomplete data stream");
                             }
+                            else
+                            {
+                                if (temp2[0] == "")
+                                {
+                                    throw new CorruptFrameException("Empty ID frame field");
+                                }
+                                else
+                                {
+                                    currentFrameInfo.ID = Convert.ToInt32(temp2[0]); //ID frame object filling
+                                    currentFrameInfo.SoC = Convert.ToInt32(temp2[1]); //State of Charge frame object filling
+
+                                    if (currentFrameInfo.SoC > 100)
+                                    {
+                                        throw new CorruptFrameException("State of charge > 100");
+                                    }
+                                    if (currentFrameInfo.SoC < 0)
+                                    {
+                                        throw new CorruptFrameException("State of charge < 0");
+                                    }
+                                    // Twu frame object filling
+                                    currentFrameInfo.Twu = Convert.ToInt32(temp2[2]) / 10;
+                                    //Temperature frame object filling
+                                    currentFrameInfo.Temp = Convert.ToInt32(((Convert.ToDouble(temp2[3]) * 2500 / 4095) - 986) / 3.55);
+                                    //RSSI frame object filling
+                                    currentFrameInfo.RSSI = Convert.ToInt32(temp2[4].Remove(temp2[4].Length - 1, 1)) - 53 - 45;
+
+                                    currentFrameInfo.timestamp = dateString;
+
+                                    string t = ""; // the frame text value
+
+                                    t += temp + Environment.NewLine; // raw data
+                                    t += " ID : " + currentFrameInfo.ID;
+                                    t += " SoC : " + currentFrameInfo.SoC;
+                                    t += " Temp : " + currentFrameInfo.Temp;
+                                    t += " RSSI : " + currentFrameInfo.RSSI;
+
+                                    if (Convert.ToInt32(temp2[0]) == 3)/* solar energy node */
+                                    {
+                                        solarFrameCounter++;
+                                       if(solarFrameCounter % 5 == 0)
+                                       {
+                                           textBoxSolarData.Text = t;
+                                       }
+                                       else
+                                       {
+                                           textBoxSolarData.Text += t;
+                                       }
+                                    }
+                                    else if (Convert.ToInt32(temp2[0]) == 2)/* wind energy node */
+                                    {
+                                        windFrameCounter++;
+                                        if (windFrameCounter %5 == 0)
+                                        {
+                                            textBoxWindData.Text = t;
+                                        }
+                                        else
+                                        {
+                                            textBoxWindData.Text += t;
+                                        }
+                                       
+                                    }
+                                }
+                                
+                            }
+                            
+
                         }
-
-                        bufferSerialPort.RemoveRange(0, count);
+                        else
+                        {
+                            throw new CorruptFrameException("Incorrect frame format");
+                        }
+                        try
+                        {
+                            bufferSerialPorts.RemoveRange(0, count);
+                        }
+                        catch(Exception e)
+                        {
+                            textBoxDebugInfo.Text += "Serial port buffer removal error";
+                        }
                         i = -1;
 
                     }
@@ -206,26 +292,24 @@ namespace updateClient
             }
         }
 
-        public class solarFrame
+        /*
+         * The frame object represent what we will send to the server
+         * Compared to the received data, it contains one more field : the timestamp
+         * (nb : keep in mind that the Base Station only receive the first four fields, it calculate itself the RSSI)
+         */
+        public class Frame
         {
             public int ID;
             public int SoC;
             public int Twu;
             public int Temp;
             public int RSSI;
-        }
-        public class thermalFrame
-        {
-            public int ID;
-            public int SoC;
-            public int Twu;
-            public int Temp;
-            public int RSSI;
+            public string timestamp;
         }
 
         private void UserControl1_Load(object sender, EventArgs e)
         {           
-            button_stop.Enabled = false;
+            button_stop.Enabled = false; //start-stop state machine init
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -247,6 +331,45 @@ namespace updateClient
                 button_start.Enabled = true;
             }
         }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            sendData("http://razielone.alwaysdata.net/?oper=createsite", "title=newTitle&description=longdescriptionfromc");
+        }
+
+        /*
+         * The function that will send the incoming data to the webservice
+         */
+        private void sendData(string url, string data)
+        {
+            /*
+             * Request creation
+             */
+            HttpWebRequest httpRequest = (HttpWebRequest)HttpWebRequest.Create(url);
+            httpRequest.Method = "POST";
+            String dataToSend = data;
+            Byte[] dPost = Encoding.ASCII.GetBytes(dataToSend);
+            httpRequest.ContentType = "application/x-www-form-urlencoded";
+            httpRequest.ContentLength = dPost.Length;
+            MessageBox.Show(System.Text.Encoding.Default.GetString(dPost)); //Debug messagebox : sent data
+            Stream requestStream = httpRequest.GetRequestStream();
+            requestStream.Write(dPost, 0, dPost.Length);
+            requestStream.Close();
+
+            /*
+             * Response reception
+             */
+            HttpWebResponse httpResponse = (HttpWebResponse)httpRequest.GetResponse();
+            Stream responseStream = httpResponse.GetResponseStream();
+            StreamReader reader = new StreamReader(responseStream, Encoding.Default);
+            string response = reader.ReadToEnd();
+            reader.Close();
+            responseStream.Close();
+            httpResponse.Close();
+
+            MessageBox.Show(response); //Debug messagebox : received data
+        }
+
     }
 
 }

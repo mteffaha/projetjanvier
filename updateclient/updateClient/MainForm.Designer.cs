@@ -38,14 +38,14 @@ namespace updateClient
             this.userControl11.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.userControl11.Location = new System.Drawing.Point(0, 0);
             this.userControl11.Name = "userControl11";
-            this.userControl11.Size = new System.Drawing.Size(758, 493);
+            this.userControl11.Size = new System.Drawing.Size(758, 381);
             this.userControl11.TabIndex = 0;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(759, 493);
+            this.ClientSize = new System.Drawing.Size(660, 376);
             this.Controls.Add(this.userControl11);
             this.Name = "MainForm";
             this.Text = "Form1";

@@ -12,7 +12,6 @@ C:\Users\achabert\Documents\4A\Projet janvier\git\private\updateclient\maquetteC
 C:\Users\achabert\Documents\4A\Projet janvier\git\private\updateclient\updateclient\bin\Debug\updateClient.exe.config
 C:\Users\achabert\Documents\4A\Projet janvier\git\private\updateclient\updateclient\bin\Debug\updateClient.exe
 C:\Users\achabert\Documents\4A\Projet janvier\git\private\updateclient\updateclient\bin\Debug\updateClient.pdb
-C:\Users\achabert\Documents\4A\Projet janvier\git\private\updateclient\updateclient\obj\Debug\updateClient.csprojResolveAssemblyReference.cache
 C:\Users\achabert\Documents\4A\Projet janvier\git\private\updateclient\updateclient\obj\Debug\updateClient.MainForm.resources
 C:\Users\achabert\Documents\4A\Projet janvier\git\private\updateclient\updateclient\obj\Debug\updateClient.Properties.Resources.resources
 C:\Users\achabert\Documents\4A\Projet janvier\git\private\updateclient\updateclient\obj\Debug\updateClient.UserControlSerialPortReader.resources
