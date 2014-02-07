@@ -19,48 +19,41 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:dividerHeight="1dp"
+            android:background="@color/White"
             >
         <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_margin="0dp"
-                android:background="@color/White"
+                android:background="@null"
                 android:orientation="vertical">
             <LinearLayout android:layout_width="fill_parent"
-                          android:layout_height="140dp"
+                          android:layout_height="150dp"
                           android:orientation="vertical"
                           android:background="@drawable/sitesbgimage"
                     >
-                <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
-                    <ImageView android:layout_width="50dp"
-                               android:layout_height="50dp"
-                               android:src="@drawable/sites"
-                               android:layout_margin="10dp"/>
 
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/DarkRed"
-                            android:text="Site 0"
-                            android:textSize="32sp"
-                            android:layout_marginTop="20dp"
-                            android:id="@+id/siteid"/>
-                </LinearLayout>
 
+                <Spinner
+                        android:layout_margin="10dp"
+                        android:id="@+id/sitespinner"
+                        android:layout_width="fill_parent"
+                        android:layout_height="30dp"
+                        android:background="@drawable/bottomborder"
+                        />
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/Black"
                         android:id="@+id/sitedescription"
                         android:layout_margin="10dp"
-                        android:text="Lorem ipsum dolor sit amet, consectetur adipisicing elit.poazert"/>
-
-
+                        android:text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."/>
             </LinearLayout>
 
 
-            <ListView android:layout_width="fill_parent" android:layout_height="fill_parent" android:id="@+id/listStation" ></ListView>
+            <ListView android:layout_width="fill_parent" android:layout_height="fill_parent" android:id="@+id/listStation"></ListView>
         </LinearLayout>
+
 
     </LinearLayout>
 

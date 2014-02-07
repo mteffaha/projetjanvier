@@ -5,34 +5,52 @@ import android.animation.AnimatorSet;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.*;
 import android.view.View.OnClickListener;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.polytech.projetjanvier.android.adapters.SensorAdapter;
+import org.polytech.projetjanvier.android.adapters.SiteAdapter;
 import org.polytech.projetjanvier.android.adapters.StationAdapter;
 import org.polytech.projetjanvier.android.entities.Sensor;
+import org.polytech.projetjanvier.android.entities.Site;
 import org.polytech.projetjanvier.android.entities.Station;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
-public class Sites extends Activity implements AdapterView.OnItemClickListener{
+public class Sites extends Activity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener{
 
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout drawerLayout;
     private View drawerView;
     private String appTitle;
+
+
 
     /**
      * Called when the activity is first created.
@@ -45,10 +63,9 @@ public class Sites extends Activity implements AdapterView.OnItemClickListener{
 
 
 
-        Typeface leagueGothic = Typeface.createFromAsset(getAssets(), "fonts/leaguegothic.otf");
-        TextView siteid = (TextView)findViewById(R.id.siteid);
-        ListView listStation = (ListView)findViewById(R.id.listStation);
-        siteid.setTypeface(leagueGothic);
+        Typeface leagueGothic = Typeface.createFromAsset(getAssets(), "fonts/opensans-ebi.ttf");
+
+
         drawerView = (View)findViewById(R.id.drawer_list);
 
 
@@ -75,19 +92,24 @@ public class Sites extends Activity implements AdapterView.OnItemClickListener{
         };
         drawerLayout.setDrawerListener(mDrawerToggle);
 
-        /*
-                Filling the site list with dummy data
-         */
-        ArrayList<Station> stations =  new ArrayList<Station>();
-        for(int i=0;i<4;i++){
-            stations.add(new Station(i,0));
-        }
-        listStation.setAdapter(new StationAdapter(this,0,stations));
+        Fragment fragment =  new HelloFragment();
 
-        listStation.setOnItemClickListener(this);
 
-        // Setting default view
-        setSensorList(0);
+
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.frame_container, fragment)
+                .commit();
+        // Setting the spinner
+        SitesFetcher fetcher =  new SitesFetcher();
+        fetcher.spinner =  (Spinner)findViewById(R.id.sitespinner);
+        fetcher.spinner.setOnItemSelectedListener(this);
+
+        fetcher.context = this;
+
+        fetcher.execute();
+
+
     }
 
     @Override
@@ -118,13 +140,9 @@ public class Sites extends Activity implements AdapterView.OnItemClickListener{
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-       /* Intent myIntent = new Intent(this, SensorActivity.class);
-        myIntent.putExtra("key", 10); //Optional parameters
-        this.startActivity(myIntent);
-        */
 
-        // Starting Sensor fragment
-        setSensorList(0);
+
+        setSensorList(((Station)adapterView.getItemAtPosition(i)).getId());
 
         drawerLayout.closeDrawer(drawerView);
 
@@ -132,14 +150,123 @@ public class Sites extends Activity implements AdapterView.OnItemClickListener{
 
     private void setSensorList(int id){
         Fragment fragment =  new Sensors();
-        /*
+
         Bundle args = new Bundle();
-    args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
-    fragment.setArguments(args);
-         */
+        args.putInt(getString(R.string.arg_statioid),id);
+        fragment.setArguments(args);
+
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.frame_container, fragment)
                 .commit();
+    }
+
+    private void setStationList(int id){
+
+
+
+        StationFetcher stationFetcher =  new StationFetcher();
+        stationFetcher.listView =   (ListView)findViewById(R.id.listStation);
+        stationFetcher.context = this;
+        stationFetcher.siteid = id;
+
+        stationFetcher.listView.setOnItemClickListener(this);
+
+        stationFetcher.execute();
+
+    }
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        Site s = (Site)adapterView.getItemAtPosition(i);
+        TextView tv = (TextView)findViewById(R.id.sitedescription);
+        tv.setText(s.getDescription());
+        tv.invalidate();
+        setStationList(s.getId());
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+
+    private class SitesFetcher extends AsyncTask<String, Void, ArrayList<Site>>
+    {
+
+        public Spinner spinner;
+        public Context context;
+
+        @Override
+        protected ArrayList<Site> doInBackground(String... strings) {
+            ArrayList<Site> lsSites = new ArrayList<Site>();
+            XMLParser parser = new XMLParser();
+            String xml = parser.getXmlFromUrl(getString(R.string.URLgetSites));
+            Document doc = parser.getDomElement(xml);
+
+            NodeList nl = doc.getElementsByTagName("site");
+
+
+            for(int i=0;i<nl.getLength();i++){
+                Element e =(Element)nl.item(i);
+                int id = Integer.parseInt(parser.getValue(e,"id"));
+                String title= parser.getValue(e,"title");
+                String description = parser.getValue(e,"description");
+                int nbStation = 0;
+                lsSites.add(new Site(id, title,description, nbStation));
+            }
+
+            return lsSites;
+        }
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        protected void onPostExecute(ArrayList<Site> list) {
+            spinner.setAdapter(new SiteAdapter(context,R.layout.site_element,list));
+
+        }
+    }
+
+    private class StationFetcher extends AsyncTask<String, Void, ArrayList<Station>>
+    {
+
+        public ListView listView;
+        public Context context;
+        int siteid;
+
+        @Override
+        protected ArrayList<Station> doInBackground(String... strings) {
+            ArrayList<Station> lsSites = new ArrayList<Station>();
+            XMLParser parser = new XMLParser();
+
+
+            String xml = parser.getXmlFromUrl(getString(R.string.URLgetStation)+siteid);
+
+            Document doc = parser.getDomElement(xml);
+
+            NodeList nl = doc.getElementsByTagName("station");
+
+
+            for(int i=0;i<nl.getLength();i++){
+                Element e =(Element)nl.item(i);
+                int id = Integer.parseInt(parser.getValue(e, "id"));
+                String title= parser.getValue(e,"title");
+                int nbStation = 0;
+                lsSites.add(new Station(id,title,siteid));
+            }
+
+            return lsSites;
+        }
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        protected void onPostExecute(ArrayList<Station> list) {
+            listView.setAdapter(new StationAdapter(context,0,list));
+
+        }
     }
 }

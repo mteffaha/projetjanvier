@@ -7,9 +7,11 @@ public class Station {
 
     private int id;
     private int siteID;
-    public Station(int id,int siteID){
+    private String title;
+    public Station(int id,String title,int siteID){
         this.id = id;
         this.siteID = siteID;
+        this.title = title;
     }
 
     public int getId() {
@@ -26,5 +28,13 @@ public class Station {
 
     public void setSiteID(int siteID) {
         this.siteID = siteID;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

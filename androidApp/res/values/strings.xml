@@ -3,4 +3,11 @@
     <string name="app_name">Nodeman</string>
     <string name="open_menu">Ouvrir menu</string>
     <string name="close_menu">Fermer menu</string>
+    <string name="arg_statioid">Arg_StationID</string>
+
+    <string  name="URLgetSites">http://razielone.alwaysdata.net/?oper=getListSites</string>
+    <string  name="URLgetStation">http://razielone.alwaysdata.net/?oper=getListStations&amp;siteid=</string>
+    <string  name="URLgetSensorsInfo">http://razielone.alwaysdata.net/?oper=getSensorInfos&amp;stationid=</string>
+    <string  name="URLgetOneSensorsInfo">http://razielone.alwaysdata.net/?oper=getOneSensorInfo&amp;sensorid=</string>
+
 </resources>

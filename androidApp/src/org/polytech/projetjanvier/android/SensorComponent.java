@@ -42,18 +42,18 @@ public class SensorComponent extends View implements SensorUpdate {
 
     public SensorComponent(Context context, AttributeSet attrs, int defStyle){
         super(context,attrs,defStyle);
-        caviarDreams = Typeface.createFromAsset(context.getAssets(), "fonts/CaviarDreams.ttf");
+        caviarDreams = Typeface.createFromAsset(context.getAssets(), "fonts/opensans.ttf");
 
     }
     public SensorComponent(Context context, AttributeSet attrs)
     {
         super(context,attrs);
-        caviarDreams = Typeface.createFromAsset(context.getAssets(), "fonts/CaviarDreams.ttf");
+        caviarDreams = Typeface.createFromAsset(context.getAssets(), "fonts/opensans.ttf");
 
     }
     public SensorComponent(Context context) {
         super(context);
-        caviarDreams = Typeface.createFromAsset(context.getAssets(), "fonts/CaviarDreams.ttf");
+        caviarDreams = Typeface.createFromAsset(context.getAssets(), "fonts/opensans.ttf");
 
     }
 
@@ -110,10 +110,21 @@ public class SensorComponent extends View implements SensorUpdate {
         paintBorder.setStyle(Paint.Style.FILL);
 
         Paint paintMain = new Paint();
-        paintMain.setColor(Color.WHITE);
+        paintMain.setColor(Color.rgb(44, 62, 80));
         paintMain.setStyle(Paint.Style.FILL);
 
+        Paint paintWhite = new Paint();
+        paintWhite.setTextSize((int) (1.1 * strokeWidth));
+        paintWhite.setColor(Color.rgb(236, 240, 241));
+        paintWhite.setTypeface(caviarDreams);
 
+        Paint paintGrey = new Paint();
+        paintGrey.setColor(Color.rgb(189, 195, 199));
+        paintGrey.setTextSize(20);
+        paintGrey.setTypeface(caviarDreams);
+
+
+        Path arcPath = new Path();
 
 
         int step = strokeWidth; // the decrease in size
@@ -121,22 +132,29 @@ public class SensorComponent extends View implements SensorUpdate {
         //canvas.drawRect(new RectF(strokeWidth,strokeWidth,getWidth()-(2*strokeWidth),getHeight()-(2*strokeWidth)),paintTemperature);
 
 
-        int step2 = (2*strokeWidth)+(strokeWidth/2);
+        arcPath.addArc(new RectF(step,step,getWidth()-(2*step),getHeight()-(2*step)),startDegree,180);
+        paintGrey.setColor(Color.WHITE);
+        canvas.drawTextOnPath("TEMPERATURE",arcPath,10,10,paintGrey);
+
+        int step2 = (2*strokeWidth);
         canvas.drawArc(new RectF(step2,step2,getWidth()-step - step2,getHeight()-step - step2),startDegree,getSocDegree(),false,paintSoc);
-        //canvas.drawRect(new RectF((3*strokeWidth),(3*strokeWidth),getWidth()-(4*strokeWidth),getHeight()-(4*strokeWidth)),paintSoc);
+
+        arcPath.reset();
+        arcPath.addArc(new RectF(step2,step2,getWidth()-step - step2,getHeight()-step - step2),startDegree,180);
+        canvas.drawTextOnPath("ÉTAT DE CHARGE",arcPath,10,10,paintGrey);
+
+
         int ovalTop,ovalLeft;
         int ovalBottom,ovalRight;
-        ovalLeft= ovalTop = 3*strokeWidth+(strokeWidth/2);
-        ovalRight = getWidth() - step -  ovalLeft;
+        ovalLeft= ovalTop = 3*strokeWidth;
+        ovalRight = getWidth() - step -  ovalTop;
         ovalBottom = getHeight()- step - ovalLeft;
 
 
         canvas.drawOval(new RectF(ovalLeft,ovalTop,ovalRight,ovalBottom),paintBorder);
 
 
-        ovalLeft =ovalTop = ovalLeft+4;
-        ovalBottom -=4;
-        ovalRight-= 4;
+
 
 
         canvas.drawOval(new RectF(ovalLeft,ovalTop,ovalRight,ovalBottom),paintMain);
@@ -146,6 +164,7 @@ public class SensorComponent extends View implements SensorUpdate {
 
         // Drawing the middle line
         int startX,startY,endX,endY;
+
         startY = endY= (ovalBottom  + ovalTop)/2;
         startX = ovalLeft + strokeWidth;
         endX = ovalRight - strokeWidth;
@@ -153,13 +172,10 @@ public class SensorComponent extends View implements SensorUpdate {
 
 
         // Writing information
-        Paint paintBlack = new Paint();
-        paintBlack.setTextSize((int)(1.5*strokeWidth));
-        paintBlack.setColor(Color.rgb(69,85,96));
-        paintBlack.setTypeface(caviarDreams);
 
-        canvas.drawText("ID :"+this.id,startX+(strokeWidth/2),startY-(strokeWidth)-((paintBlack.descent() + paintBlack.ascent()) / 2),paintBlack);
-        canvas.drawText(""+this.rssi,startX+(int)(strokeWidth),startY+5+(strokeWidth)-((paintBlack.descent() + paintBlack.ascent()) / 2),paintBlack);
+
+        canvas.drawText("ID :"+this.id,startX+(strokeWidth/2),startY-(strokeWidth)-((paintWhite.descent() + paintWhite.ascent()) / 2),paintWhite);
+        canvas.drawText("RSSI: "+this.rssi,startX+(int)(strokeWidth/2),startY+5+(strokeWidth)-((paintWhite.descent() + paintWhite.ascent()) / 2),paintWhite);
 
     }
 
@@ -241,5 +257,6 @@ public class SensorComponent extends View implements SensorUpdate {
         this.temperature = sensor.getTemperature();
         this.soc = sensor.getSoc();
         this.rssi =sensor.getRssi();
+        invalidate();
     }
 }

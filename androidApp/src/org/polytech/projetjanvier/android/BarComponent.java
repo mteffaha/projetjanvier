@@ -1,8 +1,10 @@
 package org.polytech.projetjanvier.android;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.*;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 /**
@@ -14,13 +16,18 @@ public class BarComponent extends View {
     private int minValue = 25;
     private int maxValue = 75;
 
+    public void setBarColor(int barColor) {
+        this.barColor = barColor;
+        paintBar.setColor(barColor);
+    }
+
     private int barColor;
-    private int textColor;
 
     private Typeface caviarDreams;
     private Context context;
     private Paint paintBar;
     private Paint paintGrey;
+    private Paint paintText;
     private Paint paintWhite;
 
     private int margin= 10;
@@ -31,15 +38,34 @@ public class BarComponent extends View {
     private int sumValues = 245;      // the sum of all passed values
     private int countValues = 5;    // the count of all passed values
 
-    private void init(){
+    private void init(AttributeSet attrs){
 
         barColor = Color.rgb(250, 105, 0);
+
+        // Fetching the Color if specified
+        if(attrs != null){
+            TypedArray a = context.obtainStyledAttributes(attrs,
+                    R.styleable.BarComponent);
+
+            final int N = a.getIndexCount();
+            for (int i = 0; i < N; ++i)
+            {
+                int attr = a.getIndex(i);
+                switch (attr)
+                {
+                    case R.styleable.BarComponent_barColor:
+                        barColor =a.getColor(attr,barColor);
+                        break;
+                }
+            }
+            a.recycle();
+        }
+
+
         caviarDreams =  Typeface.createFromAsset(context.getAssets(),"fonts/CaviarDreams.ttf");
 
         paintBar = new Paint();
         paintBar.setColor(barColor);
-        paintBar.setTextSize(40);
-        paintBar.setTypeface(caviarDreams);
 
 
         paintGrey= new Paint();
@@ -48,25 +74,31 @@ public class BarComponent extends View {
         paintWhite = new Paint();
         paintWhite.setColor(Color.WHITE);
 
+        paintText = new Paint();
+        paintText.setColor(Color.DKGRAY);
+        paintText.setTextSize(40);
+        paintText.setTypeface(caviarDreams);
+
+
     }
 
     public BarComponent(Context context) {
         super(context);
         this.context = context;
-        init();
+        init(null);
 
     }
 
     public BarComponent(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
-        init();
+        init(attrs);
     }
 
     public BarComponent(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.context = context;
-        init();
+        init(attrs);
     }
 
 
@@ -91,6 +123,7 @@ public class BarComponent extends View {
         }
         sumValues+=currentValue;
         countValues++;
+        invalidate();
     }
 
 
@@ -121,14 +154,14 @@ public class BarComponent extends View {
     protected void onDraw(Canvas canvas) {
 
 
-        String title = ""+getAverageValue(); // Creating the title
+        String title = ""+getCurrentValue(); // Creating the title
 
         // Getting the title size
         Rect bounds = new Rect();
-        paintBar.getTextBounds(title, 0, title.length(), bounds);
-        canvas.drawText(title,0,bounds.height()+margin, paintBar);
+        paintText.getTextBounds(title, 0, title.length(), bounds);
+        canvas.drawText(title,0,bounds.height()+margin, paintText);
 
-        int width = getWidth()-(bounds.width()+margin); //  the width of the bar
+        int width = getWidth()-(2*margin); //  the width of the bar
 
         // Drawing the bar background
         width-=margin;
@@ -137,6 +170,8 @@ public class BarComponent extends View {
         // Calculating the width of the rectangle representing the value
         int totalGap = maxValue - minValue;
         int percentage = currentValue - minValue;
+
+
         percentage = percentage * 100/totalGap;
         int startAverage = getAverageValue()-minValue;
         startAverage = startAverage *100/totalGap;

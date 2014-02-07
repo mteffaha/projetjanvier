@@ -25,7 +25,7 @@ public class SensorInfo {
 
 
     //(stationID, type,wakeUpPeriod ,stateOfCharge, temperature, RSSI)
-    public SensorInfo(int stationID, int type,int wakeUpPeriod ,float stateOfCharge, float temperature, float RSSI,double timestamp){
+    public SensorInfo(int stationID, int type,int wakeUpPeriod ,float stateOfCharge, float temperature, float RSSI,double timestamptitl){
         this.stationID = stationID;
         this.id = id;
         this.stateOfCharge = stateOfCharge;

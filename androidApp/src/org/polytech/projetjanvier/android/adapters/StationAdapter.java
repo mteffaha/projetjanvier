@@ -24,14 +24,14 @@ public class StationAdapter extends ArrayAdapter<Station> {
         super(context, resource, objects);
         this.context = context;
         this.stations = objects;
-        leagueGothic = Typeface.createFromAsset(context.getAssets(), "fonts/leaguegothic.otf");
+        leagueGothic = Typeface.createFromAsset(context.getAssets(), "fonts/opensans.ttf");
     }
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.stationelement, parent, false);
         TextView stationTitle = (TextView) rowView.findViewById(R.id.stationtitle);
-        stationTitle.setText("Station "+stations.get(position).getId());
+        stationTitle.setText(stations.get(position).getTitle());
         stationTitle.setTypeface(leagueGothic);
         return rowView;
     }
