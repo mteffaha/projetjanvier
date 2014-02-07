@@ -1,0 +1,10 @@
+C:\Users\Mortadha\projetJanvier\private\updateclient\updateclient\bin\Release\updateClient.exe.config
+C:\Users\Mortadha\projetJanvier\private\updateclient\updateclient\bin\Release\updateClient.exe
+C:\Users\Mortadha\projetJanvier\private\updateclient\updateclient\bin\Release\updateClient.pdb
+C:\Users\Mortadha\projetJanvier\private\updateclient\updateclient\obj\Release\updateClient.csprojResolveAssemblyReference.cache
+C:\Users\Mortadha\projetJanvier\private\updateclient\updateclient\obj\Release\updateClient.MainForm.resources
+C:\Users\Mortadha\projetJanvier\private\updateclient\updateclient\obj\Release\updateClient.Properties.Resources.resources
+C:\Users\Mortadha\projetJanvier\private\updateclient\updateclient\obj\Release\updateClient.UserControlSerialPortReader.resources
+C:\Users\Mortadha\projetJanvier\private\updateclient\updateclient\obj\Release\updateClient.csproj.GenerateResource.Cache
+C:\Users\Mortadha\projetJanvier\private\updateclient\updateclient\obj\Release\updateClient.exe
+C:\Users\Mortadha\projetJanvier\private\updateclient\updateclient\obj\Release\updateClient.pdb

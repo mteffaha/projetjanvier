@@ -151,18 +151,19 @@ namespace updateClient
                 catch(CorruptFrameException cfe)
                 {
                     frameExceptionCounter++;
-                    labelCorruptFrameNumber.Text = frameExceptionCounter.ToString();
+                    //labelCorruptFrameNumber.Text = frameExceptionCounter.ToString();
+                    
+                       /* if (frameExceptionCounter % 5 == 0)// we fit up to five frame exception info
+                        {
 
-                    if(frameExceptionCounter % 5 == 0)// we fit up to five frame exception info
-                    {
-
-                        textBoxDebugInfo.Text = cfe.getErrorMessage();               
-                    }
-                    else
-                    {
-                        textBoxDebugInfo.Text += cfe.getErrorMessage(); 
-                    }
-                    textBoxDebugInfo.Text += "\r\n";
+                            textBoxDebugInfo.Text = cfe.getErrorMessage();
+                        }
+                        else
+                        {
+                            textBoxDebugInfo.Text += cfe.getErrorMessage();
+                        }
+                        textBoxDebugInfo.Text += "\r\n";
+                        */
                 }
             }
         }
@@ -235,7 +236,8 @@ namespace updateClient
                                     currentFrameInfo.timestamp = dateString;
 
                                     int type;
-                                    string parameters = "stationid=1&type="+temp2[0]+"&wakeUpPeriod="+currentFrameInfo.Twu+"&stateOfCharge="+currentFrameInfo.SoC+"&temperature="+currentFrameInfo.Temp;
+                                    string parameters = "stationid=1&type=" + temp2[0] + "&wakeUpPeriod=" + currentFrameInfo.Twu + "&stateOfCharge=" + currentFrameInfo.SoC + "&temperature=" + currentFrameInfo.Temp + "&RSSI=" + currentFrameInfo.RSSI;
+                                   // MessageBox.Show(parameters);
                                     try
                                     {
                                         sendData("razielone.alwaysdata.net/?oper=updateSensor", parameters);
