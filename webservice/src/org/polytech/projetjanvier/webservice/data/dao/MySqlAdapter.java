@@ -64,7 +64,7 @@ public class MySqlAdapter implements DataAdapter {
                 try {
                         Statement statement = _connection.createStatement();
                         statement.setQueryTimeout(30);
-                        statement.executeUpdate("drop table if exists info");
+                        statement.executeUpdate("drop table if exists infos");
                         statement.executeUpdate("drop table if exists stations");
                         statement.executeUpdate("drop table if exists sites");
                         statement.executeUpdate("create table sites (" +
@@ -76,7 +76,7 @@ public class MySqlAdapter implements DataAdapter {
                                         "site_id integer references sites," +
                                         "desc string" +
                                         ")");
-                        statement.executeUpdate("create table info (" +
+                        statement.executeUpdate("create table infos (" +
                                         "station_id integer references stations," +
                                         "type integer," +
                                         "period integer," +

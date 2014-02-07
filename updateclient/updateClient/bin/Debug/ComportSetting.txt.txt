@@ -1,0 +1,11 @@
+ COMPORT:COM4
+
+-          BAUDRATE:115200
+
+-          DATABITS:8
+
+-          PARITY:None
+
+-          STOPBIT:One
+
+-          AUTOCONNECT:False
