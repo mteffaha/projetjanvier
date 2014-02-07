@@ -183,7 +183,7 @@ namespace updateClient
                 frameCounter++;
                 labelTotalFrameNumber.Text = frameCounter.ToString();
 
-                textBoxSolarData.Text = "";
+                textBoxSolarData.Text += "";
                 byte[] arr_bytes = new byte[bufferSerialPorts.Count];
                 for (int i = 0; i < bufferSerialPorts.Count; i++)
                 {
@@ -234,18 +234,31 @@ namespace updateClient
 
                                     currentFrameInfo.timestamp = dateString;
 
+                                    int type;
+                                    string parameters = "stationid=1&type="+temp2[0]+"&wakeUpPeriod="+currentFrameInfo.Twu+"&stateOfCharge="+currentFrameInfo.SoC+"&temperature="+currentFrameInfo.Temp;
+                                    try
+                                    {
+                                        sendData("razielone.alwaysdata.net/?oper=updateSensor", parameters);
+                                    }
+                                    catch(Exception fe)
+                                    {
+
+                                    }
+                                    
                                     string t = ""; // the frame text value
 
-                                    t += temp + Environment.NewLine; // raw data
+
                                     t += " ID : " + currentFrameInfo.ID;
                                     t += " SoC : " + currentFrameInfo.SoC;
+                                    t += " Twu : " + currentFrameInfo.Twu;
                                     t += " Temp : " + currentFrameInfo.Temp;
                                     t += " RSSI : " + currentFrameInfo.RSSI;
+                                    t += Environment.NewLine; // raw data
 
                                     if (Convert.ToInt32(temp2[0]) == 3)/* solar energy node */
                                     {
-                                        solarFrameCounter++;
-                                       if(solarFrameCounter % 5 == 0)
+                                       solarFrameCounter++;
+                                       if(solarFrameCounter % 7 == 0)
                                        {
                                            textBoxSolarData.Text = t;
                                        }
@@ -356,20 +369,21 @@ namespace updateClient
             requestStream.Write(dPost, 0, dPost.Length);
             requestStream.Close();
 
-            /*
-             * Response reception
-             */
             HttpWebResponse httpResponse = (HttpWebResponse)httpRequest.GetResponse();
             Stream responseStream = httpResponse.GetResponseStream();
             StreamReader reader = new StreamReader(responseStream, Encoding.Default);
+
             string response = reader.ReadToEnd();
             reader.Close();
             responseStream.Close();
             httpResponse.Close();
 
-            MessageBox.Show(response); //Debug messagebox : received data
+            index++;
+            textBoxDebugInfo.Text += response+index.ToString();
+         
         }
 
+        private int index = 0;
     }
 
 }

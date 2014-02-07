@@ -54,7 +54,6 @@
             this.labelTotalFrameNumberTitle = new System.Windows.Forms.Label();
             this.textBoxDebugInfo = new System.Windows.Forms.TextBox();
             this.panelData = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panelCOMLinkConfiguration.SuspendLayout();
@@ -76,9 +75,9 @@
             this.labelDebug_info.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelDebug_info.Location = new System.Drawing.Point(12, 11);
             this.labelDebug_info.Name = "labelDebug_info";
-            this.labelDebug_info.Size = new System.Drawing.Size(130, 13);
+            this.labelDebug_info.Size = new System.Drawing.Size(158, 13);
             this.labelDebug_info.TabIndex = 0;
-            this.labelDebug_info.Text = "Informations de débogage";
+            this.labelDebug_info.Text = "Informations de trames en erreur";
             // 
             // labelSolarData
             // 
@@ -270,7 +269,6 @@
             // 
             this.panelData.BackColor = System.Drawing.Color.PowderBlue;
             this.panelData.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panelData.Controls.Add(this.button1);
             this.panelData.Controls.Add(this.textBoxSolarData);
             this.panelData.Controls.Add(this.labelSolarData);
             this.panelData.Controls.Add(this.labelWindData);
@@ -279,16 +277,6 @@
             this.panelData.Name = "panelData";
             this.panelData.Size = new System.Drawing.Size(321, 362);
             this.panelData.TabIndex = 16;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(123, 332);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Start";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // panel1
             // 
@@ -363,7 +351,6 @@
         private System.Windows.Forms.Label labelTotalFrameNumber;
         private System.Windows.Forms.Label labelCorruptFrameNumberTitle;
         private System.Windows.Forms.Label labelTotalFrameNumberTitle;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel1;
     }
