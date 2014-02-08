@@ -75,7 +75,7 @@
       <file leaf-file-name="Sites.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/polytech/projetjanvier/android/Sites.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="193" column="0" selection-start="6071" selection-end="7302" vertical-scroll-proportion="0.0" vertical-offset="2175" max-vertical-offset="3555">
+            <state line="193" column="0" selection-start="6071" selection-end="7302" vertical-scroll-proportion="0.0" vertical-offset="2895" max-vertical-offset="4170">
               <folding />
             </state>
           </provider>
@@ -84,10 +84,9 @@
       <file leaf-file-name="SensorDetail.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/polytech/projetjanvier/android/SensorDetail.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="68" column="82" selection-start="1828" selection-end="1828" vertical-scroll-proportion="-0.25" vertical-offset="1170" max-vertical-offset="1785">
+            <state line="68" column="82" selection-start="1828" selection-end="1828" vertical-scroll-proportion="0.0" vertical-offset="1020" max-vertical-offset="1785">
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1640#1648#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -96,15 +95,8 @@
       <file leaf-file-name="Sensors.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/polytech/projetjanvier/android/Sensors.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="93" column="1" selection-start="2652" selection-end="4580" vertical-scroll-proportion="0.0" vertical-offset="1350" max-vertical-offset="2535">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1510#1542#0" expanded="true" />
-                <element signature="e#1723#2057#0" expanded="true" />
-                <element signature="e#2046#2047#0" expanded="true" />
-                <element signature="e#3008#3016#0" expanded="true" />
-                <element signature="e#3153#3190#0" expanded="true" />
-              </folding>
+            <state line="93" column="1" selection-start="2652" selection-end="4580" vertical-scroll-proportion="0.0" vertical-offset="1395" max-vertical-offset="2535">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -112,7 +104,7 @@
       <file leaf-file-name="strings.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="90" selection-start="492" selection-end="544" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="285">
+            <state line="9" column="90" selection-start="492" selection-end="544" vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="285">
               <folding />
             </state>
           </provider>
@@ -135,9 +127,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="1597" />
-    <option name="width" value="1926" />
-    <option name="height" value="1082" />
+    <option name="x" value="-3" />
+    <option name="y" value="180" />
+    <option name="width" value="1606" />
+    <option name="height" value="877" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -515,15 +508,16 @@
       <workItem from="1391766652309" duration="399000" />
       <workItem from="1391767071508" duration="76000" />
       <workItem from="1391800083838" duration="1706000" />
+      <workItem from="1391897101953" duration="7000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2181000" />
+    <option name="totallyTimeSpent" value="2188000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1597" y="0" width="1926" height="1082" extended-state="6" />
-    <editor active="true" />
+    <frame x="-3" y="180" width="1606" height="877" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -539,19 +533,19 @@
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32919255" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.34958506" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12034079" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32919255" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -578,32 +572,31 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/org/polytech/projetjanvier/android/Sites.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="151" column="33" selection-start="4943" selection-end="4943" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4170">
+        <state line="193" column="0" selection-start="6071" selection-end="7302" vertical-scroll-proportion="0.0" vertical-offset="2895" max-vertical-offset="4170">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/polytech/projetjanvier/android/SensorDetail.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="90">
+        <state line="68" column="82" selection-start="1828" selection-end="1828" vertical-scroll-proportion="0.0" vertical-offset="1020" max-vertical-offset="1785">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1640#1648#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/polytech/projetjanvier/android/Sensors.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="90">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1510#1542#0" expanded="true" />
-            <element signature="e#1723#2057#0" expanded="true" />
-            <element signature="e#2046#2047#0" expanded="true" />
-            <element signature="e#3008#3016#0" expanded="true" />
-            <element signature="e#3153#3190#0" expanded="true" />
-          </folding>
+        <state line="93" column="1" selection-start="2652" selection-end="4580" vertical-scroll-proportion="0.0" vertical-offset="1395" max-vertical-offset="2535">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="90" selection-start="492" selection-end="544" vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="285">
+          <folding />
         </state>
       </provider>
     </entry>
@@ -619,7 +612,6 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="90">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1640#1648#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -627,14 +619,30 @@
     <entry file="file://$PROJECT_DIR$/src/org/polytech/projetjanvier/android/Sensors.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="90">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/polytech/projetjanvier/android/Sites.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="151" column="33" selection-start="4943" selection-end="4943" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4170">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/polytech/projetjanvier/android/SensorDetail.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="90">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1510#1542#0" expanded="true" />
-            <element signature="e#1723#2057#0" expanded="true" />
-            <element signature="e#2046#2047#0" expanded="true" />
-            <element signature="e#3008#3016#0" expanded="true" />
-            <element signature="e#3153#3190#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/polytech/projetjanvier/android/Sensors.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="90">
+          <folding />
         </state>
       </provider>
     </entry>
@@ -655,23 +663,15 @@
     <entry file="file://$PROJECT_DIR$/src/org/polytech/projetjanvier/android/Sensors.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="93" column="1" selection-start="2652" selection-end="4580" vertical-scroll-proportion="0.0" vertical-offset="1350" max-vertical-offset="2535">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1510#1542#0" expanded="true" />
-            <element signature="e#1723#2057#0" expanded="true" />
-            <element signature="e#2046#2047#0" expanded="true" />
-            <element signature="e#3008#3016#0" expanded="true" />
-            <element signature="e#3153#3190#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/polytech/projetjanvier/android/SensorDetail.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="82" selection-start="1828" selection-end="1828" vertical-scroll-proportion="-0.25" vertical-offset="1170" max-vertical-offset="1785">
+        <state line="68" column="82" selection-start="1828" selection-end="1828" vertical-scroll-proportion="0.0" vertical-offset="1020" max-vertical-offset="1785">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1640#1648#0" expanded="true" />
           </folding>
         </state>
       </provider>
